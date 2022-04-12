@@ -16,9 +16,6 @@ class Log
     #[ORM\Column(type: 'string', length: 128)]
     private $service;
 
-    #[ORM\Column(type: 'datetimetz')]
-    private $timestamp;
-
     #[ORM\Column(type: 'string', length: 16)]
     private $method;
 
@@ -30,6 +27,9 @@ class Log
 
     #[ORM\Column(type: 'smallint', length: 3)]
     private $status;
+
+    #[ORM\Column(type: 'datetimetz')]
+    private $created_at;
 
     public function getId(): ?int
     {
@@ -48,14 +48,14 @@ class Log
         return $this;
     }
 
-    public function getTimestamp(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->timestamp;
+        return $this->created_at;
     }
 
-    public function setTimestamp(\DateTimeInterface $timestamp): self
+    public function setCreatedAt(\DateTimeInterface $created_at): self
     {
-        $this->timestamp = $timestamp;
+        $this->created_at = $created_at;
 
         return $this;
     }
