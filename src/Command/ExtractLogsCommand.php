@@ -5,18 +5,18 @@ namespace App\Command;
 use App\Entity\Log;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Filesystem\Path;
-use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 class ExtractLogsCommand extends Command
 {
     protected static $defaultName = 'log:extract';
 
-    public function __construct(private EntityManagerInterface $entity_manager)
+    public function __construct(private EntityManagerInterface $entity_manager, private ContainerBagInterface $container)
     {
         parent::__construct();
     }
@@ -29,7 +29,7 @@ class ExtractLogsCommand extends Command
                 'log-path',
                 InputArgument::OPTIONAL,
                 'Path to file containing logs',
-                'logs.log'
+                $_ENV['LOGS_PATH'] ?? 'logs.log'
             );
     }
 
