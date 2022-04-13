@@ -36,8 +36,8 @@ A simple Symfony 6 application, Dockerized.
 -   `php bin/console doctrine:database:create`
 -   `doctrine:migrations:sync-metadata-storage`
 -   `php bin/console doctrine:migrations:migrate`
--   To start up the development server, run the command `php bin/console serve`
--   To spin up the Docker container, run the command `docker-compose up -d`
+-   `php bin/console serve` *- To start up the development server*
+-   `docker-compose up -d` *- To start up the Docker container*
 
 #### Extracting Logs
 -   To extrtact logs into the database, run the command `symfony console log:extract`
