@@ -50,10 +50,10 @@ class ExtractLogsCommand extends Command
 
         $io->info('Inserting records...');
 
-        $progress_bar = new ProgressBar($output, count($file));
+        $progress_bar = new ProgressBar($output, $record_count = count($file));
         $progress_bar->start();
 
-        foreach (file($log_path) as $record) {
+        foreach (file($log_path) as $key => $record) {
             $record = str_replace('- - ', '', $record);
 
             [ $service, $timestamp, $timezone, $method, $url, $http, $status ] = array_map(fn ($item) => trim($item), explode(' ', $record));
@@ -68,9 +68,12 @@ class ExtractLogsCommand extends Command
             $entry->setCreatedAt(new \DateTime(str_replace('[', '', $timestamp) . ' ' . $entry->getTimezone()));
 
             $entity_manager->persist($entry);
-            $entity_manager->flush();
 
             $progress_bar->advance();
+
+            if ($key % min(10000, $record_count - 1) == 0) {
+                $entity_manager->flush();
+            }
         }
 
         $progress_bar->finish();
