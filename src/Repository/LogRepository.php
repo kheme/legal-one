@@ -44,4 +44,34 @@ class LogRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+
+    public function getFilteredCount(array $filters)
+    {
+        $count = $this->createQueryBuilder('log')
+            ->where('log.service IN (:services)')
+            ->setParameter('services', $filters['services']);
+
+        if ($filters['status']) {
+            $count
+                ->andWhere('log.status = :status')
+                ->setParameter('status', $filters['status']);
+        }
+
+        if ($filters['start']) {
+            $count
+                ->andWhere('log.created_at >= :start')
+                ->setParameter('start', $filters['start'] . ' 00:00:00');
+        }
+
+        if ($filters['end']) {
+            $count
+                ->andWhere('log.created_at <= :end')
+                ->setParameter('end', $filters['end'] . ' 23:59:59');
+        }
+        
+        return $count
+            ->select('COUNT(log.id)')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
