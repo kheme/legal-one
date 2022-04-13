@@ -28,6 +28,9 @@ class Log
     #[ORM\Column(type: 'smallint', length: 3)]
     private $status;
 
+    #[ORM\Column(type: 'string', length: 5)]
+    private $timezone;
+
     #[ORM\Column(type: 'datetimetz')]
     private $created_at;
 
@@ -44,6 +47,18 @@ class Log
     public function setService(string $service): self
     {
         $this->service = $service;
+
+        return $this;
+    }
+
+    public function getTimezone(): ?string
+    {
+        return $this->timezone;
+    }
+
+    public function setTimezone(string $timezone): self
+    {
+        $this->timezone = $timezone;
 
         return $this;
     }
