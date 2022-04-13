@@ -2,9 +2,38 @@
 
 namespace App\Entity;
 
-use App\Repository\LogRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\LogRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\LogController;
 
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="logs")
+ * @ApiResource(
+ *  itemOperations={
+ *    "filter" = {
+ *       "method" = "GET",
+ *       "path" = "/count",
+ *       "controller" = LogController::class,
+ *       "read"=false,
+ *       "openapi_context" = {
+ *         "parameters" = {
+ *           {
+ *              "name"        = "serviceNames",
+ *              "in"          = "path",
+ *              "description" = "Service name of interest",
+ *              "type"        = "string",
+ *              "required"    = true,
+ *              "example"     = "USER-SERVICE",
+ *           },
+ *         },
+ *       },
+ *    }
+ *  }
+ * )
+ */
 #[ORM\Entity(repositoryClass: LogRepository::class)]
 class Log
 {
