@@ -8,8 +8,8 @@ A simple Symfony 6 application, Dockerized.
 
 ## Project Requirements
 
--  Nginx web server
--  MySQL 8.0
+-  Nginx
+-  MariaDB 8.0.10 or higher
 -  PHP 8.0.2 or higher
 -  Symfony 6.0
 -  Docker
