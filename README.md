@@ -41,3 +41,11 @@ A simple Symfony 6 application, Dockerized.
 
 #### Extracting Logs
 -   To extrtact logs into the database, run the command `symfony console log:extract`
+
+#### API
+-   Once you have the server up and running, make a `GET` request to: `http://127.0.0.1:8000/api/count`
+-   Optionally, you may filter count results with the following query parameters:
+    - serviceNames (`array`): An array of strings specifying which service names to count
+    - statusCode (`integer`): A valid HTTP status code to filter by
+    - startDate (`date`): A validate date in `YYYY-MM-DD` format from which to start searching (inclusive)
+    - endDate (`date`): A validate date in `YYYY-MM-DD` format up to which to stop searching (inclusive)
